@@ -34,7 +34,19 @@
     .season span { background: #ffe8d1; border-radius: 999px; padding: .2rem .8rem; font-size: .85rem; }
     footer { grid-area: footer; background: #333; color: #ddd; text-align: center; border-radius: 12px; padding: 1.2rem; font-size: .85rem; }
     footer small { display: block; opacity: .7; margin-top: .3rem; }
+    .photos { margin-top: 1.4rem; padding-top: 1rem; border-top: 2px dashed #ffd9b3; }
+    .search { display: flex; gap: .5rem; margin-bottom: .6rem; }
+    .search input { flex: 1; padding: .55rem .8rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
+    .search button, .pnav button { padding: .5rem 1rem; border: 0; border-radius: 8px; background: #ff6b35; color: #fff; font-size: .95rem; cursor: pointer; }
+    .search button:disabled, .pnav button:disabled { opacity: .4; cursor: not-allowed; }
+    #pstatus { text-align: center; color: #666; font-size: .9rem; min-height: 1.4rem; }
+    #pslide { display: grid; grid-template-columns: repeat(5, 1fr); gap: .4rem; }
+    #pslide a { display: block; aspect-ratio: 1; border-radius: 8px; overflow: hidden; background: #eee; }
+    #pslide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pnav { display: flex; justify-content: center; align-items: center; gap: .8rem; margin-top: .7rem; font-size: .9rem; }
+    .pcredit { text-align: center; font-size: .75rem; color: #999; margin-top: .6rem; }
     @media (max-width: 720px) {
+      #pslide { grid-template-columns: repeat(2, 1fr); }
       .layout { grid-template-columns: 1fr; grid-template-areas: "header" "nav" "section" "article" "aside" "footer"; }
       header h1 { font-size: 1.6rem; }
     }
@@ -66,6 +78,22 @@
         <div class="item"><div class="e">🍡</div><h3>오메기떡</h3><p>차조로 빚은 쫀득한 전통 떡</p></div>
         <div class="item"><div class="e">🍵</div><h3>제주 녹차</h3><p>한라산 자락에서 자란 향긋한 차</p></div>
         <div class="item"><div class="e">🥕</div><h3>구좌 당근</h3><p>달콤한 제주 밭작물, 주스로도 인기</p></div>
+      </div>
+
+      <div class="photos" id="photos">
+        <h2>📷 사진으로 만나보기</h2>
+        <div class="search">
+          <input id="pq" type="text" placeholder="검색어 (예: 제주도, 귤, tangerine)" value="제주 귤">
+          <button id="pgo">검색</button>
+        </div>
+        <div id="pstatus"></div>
+        <div id="pslide"></div>
+        <div class="pnav">
+          <button id="pprev" disabled>◀ 이전 10개</button>
+          <span id="ppage"></span>
+          <button id="pnext" disabled>다음 10개 ▶</button>
+        </div>
+        <div class="pcredit">이미지 제공: <a href="https://pixabay.com" target="_blank" rel="noopener">Pixabay</a></div>
       </div>
     </section>
 
@@ -103,5 +131,46 @@
       <small>시기·정보는 참고용입니다. 정확한 내용은 판매처와 공식 안내를 확인하세요.</small>
     </footer>
   </div>
+  <script>
+    // API 키는 서버(/api/pixabay)의 환경변수에만 있고, 이 파일에는 없습니다.
+    const $ = id => document.getElementById(id);
+    let query = '', page = 1;
+
+    async function load(p) {
+      if (!query) { $('pstatus').textContent = '검색어를 입력해 주세요.'; return; }
+      $('pstatus').textContent = '불러오는 중…';
+      $('pprev').disabled = $('pnext').disabled = $('pgo').disabled = true;
+      try {
+        const res = await fetch('/api/pixabay?' + new URLSearchParams({ q: query, page: p }));
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '오류 ' + res.status);
+        page = p;
+        const slide = $('pslide');
+        slide.innerHTML = '';
+        data.hits.forEach(h => {
+          const a = document.createElement('a');
+          a.href = h.pageURL; a.target = '_blank'; a.rel = 'noopener'; a.title = h.tags;
+          const img = document.createElement('img');
+          img.src = h.img; img.alt = h.tags; img.loading = 'lazy';
+          a.appendChild(img); slide.appendChild(a);
+        });
+        const last = Math.max(1, Math.ceil(data.totalHits / 10));
+        $('ppage').textContent = data.totalHits ? page + ' / ' + last : '';
+        $('pstatus').textContent = data.totalHits ? '' : '검색 결과가 없습니다.';
+        $('pprev').disabled = page <= 1;
+        $('pnext').disabled = page >= last;
+      } catch (e) {
+        $('pstatus').textContent = e.message || '불러오지 못했습니다.';
+      } finally {
+        $('pgo').disabled = false;
+      }
+    }
+    function search() { query = $('pq').value.trim(); load(1); }
+    $('pgo').addEventListener('click', search);
+    $('pq').addEventListener('keydown', e => { if (e.key === 'Enter') search(); });
+    $('pprev').addEventListener('click', () => load(page - 1));
+    $('pnext').addEventListener('click', () => load(page + 1));
+    search();
+  </script>
 </body>
 </html>
