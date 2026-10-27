@@ -3,68 +3,105 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>화면 부품 지도</title>
+  <title>제주 특산물 이야기</title>
   <style>
     * { box-sizing: border-box; }
-    body { font-family: sans-serif; margin: 0; padding: 1.5rem 1rem; background: #eef0f3; color: #222; }
-    h1 { font-size: 1.3rem; text-align: center; margin: 0 0 .3rem; }
-    .sub { text-align: center; color: #666; font-size: .9rem; margin-bottom: 1.5rem; }
-    .wrap { max-width: 760px; margin: 0 auto; padding-right: 150px; }
-    .part { position: relative; border: 2px solid; border-radius: 8px; margin-bottom: 12px; padding: .7rem 1rem; background: #fff; }
-    .tag { position: absolute; left: calc(100% + 14px); top: 12px; color: #fff; font-size: .8rem; padding: .2rem .6rem; border-radius: 999px; white-space: nowrap; }
-    .tag small { opacity: .85; }
-    .header { border-color: #ff8a3d; background: #fff3ea; text-align: center; }
-    .header .tag { background: #ff8a3d; }
-    .tabs { border-color: #2f6fed; display: flex; gap: 8px; justify-content: center; }
-    .tabs .tag { background: #2f6fed; }
-    .tabs span.t { border: 1px solid #9db7f5; border-radius: 6px; padding: .2rem .8rem; font-size: .85rem; }
-    .card { border-color: #1f9d6b; }
-    .card .tag { background: #1f9d6b; }
-    .card h3 { margin: 0 0 .4rem; font-size: 1rem; }
-    .lines { position: relative; border: 2px dashed #a855f7; border-radius: 6px; padding: .4rem .7rem; }
-    .lines .tag { background: #a855f7; }
-    .lines div { font-size: .8rem; color: #777; margin: 2px 0; }
-    .footer { border-color: #666; background: #eee; text-align: center; font-size: .85rem; }
-    .footer .tag { background: #666; }
-    .box { max-width: 760px; margin: 1.5rem auto 0; background: #fff; border-radius: 12px; padding: 1rem 1.2rem; font-size: .9rem; }
-    .box h2 { font-size: 1rem; margin: 0 0 .5rem; }
-    .box li { margin: .3rem 0; }
-    .miss { color: #999; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Malgun Gothic", sans-serif; margin: 0; background: #fff8ef; color: #2b2b2b; line-height: 1.7; }
+    .layout { max-width: 1000px; margin: 0 auto; padding: 1rem; display: grid; gap: 1rem;
+      grid-template-columns: 2fr 1fr;
+      grid-template-areas: "header header" "nav nav" "section aside" "article aside" "footer footer"; }
+    header { grid-area: header; background: linear-gradient(135deg, #ff9f43, #ff6b35); color: #fff; border-radius: 16px; padding: 2rem 1.5rem; text-align: center; }
+    header h1 { margin: 0; font-size: 2rem; }
+    header p { margin: .4rem 0 0; opacity: .95; }
+    nav { grid-area: nav; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.08); display: flex; flex-wrap: wrap; justify-content: center; gap: .3rem 1.4rem; padding: .8rem 1rem; }
+    nav a { color: #444; text-decoration: none; font-weight: bold; padding: .2rem .4rem; border-radius: 6px; }
+    nav a:hover { background: #ffe8d1; color: #ff6b35; }
+    section, article, aside { background: #fff; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,.08); padding: 1.3rem 1.5rem; }
+    section { grid-area: section; }
+    article { grid-area: article; }
+    aside { grid-area: aside; background: #e9f7f2; }
+    h2 { margin: 0 0 .8rem; font-size: 1.3rem; color: #ff6b35; }
+    aside h2 { color: #1f9d6b; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .8rem; }
+    .item { background: #fff3e4; border-radius: 12px; padding: .9rem; text-align: center; }
+    .item .e { font-size: 2.2rem; }
+    .item h3 { margin: .2rem 0; font-size: 1rem; }
+    .item p { margin: 0; font-size: .85rem; color: #666; line-height: 1.5; }
+    article ul, aside ul { padding-left: 1.2rem; margin: .4rem 0; }
+    article li, aside li { margin: .3rem 0; }
+    .season { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: .6rem; }
+    .season span { background: #ffe8d1; border-radius: 999px; padding: .2rem .8rem; font-size: .85rem; }
+    footer { grid-area: footer; background: #333; color: #ddd; text-align: center; border-radius: 12px; padding: 1.2rem; font-size: .85rem; }
+    footer small { display: block; opacity: .7; margin-top: .3rem; }
+    @media (max-width: 720px) {
+      .layout { grid-template-columns: 1fr; grid-template-areas: "header" "nav" "section" "article" "aside" "footer"; }
+      header h1 { font-size: 1.6rem; }
+    }
   </style>
 </head>
 <body>
-  <h1>🗺️ 화면 부품 지도</h1>
-  <div class="sub">index.html 의 화면 부품에 이름표를 붙였어요 (index.html 은 그대로)</div>
+  <div class="layout">
+    <header>
+      <h1>🍊 제주 특산물 이야기 🌴</h1>
+      <p>바람과 바다와 화산이 키운 제주의 맛을 만나보세요</p>
+    </header>
 
-  <div class="wrap">
-    <div class="part header">🌴 내 취향 카드 · 제주대학교를 소개합니다<span class="tag">헤더 <small>&lt;header&gt;</small></span></div>
+    <nav>
+      <a href="#specialty">🍊 특산물</a>
+      <a href="#season">📅 제철</a>
+      <a href="#experience">🎨 체험</a>
+      <a href="#tips">💡 여행 팁</a>
+      <a href="#contact">📞 안내</a>
+    </nav>
 
-    <div class="part tabs"><span class="t">홈</span><span class="t">음식</span><span class="t">여행</span><span class="t">소개</span><span class="tag">탭 · 메뉴 <small>&lt;nav&gt;</small></span></div>
-
-    <div class="part card">
-      <h3>🌊 환영합니다 (… 10개 중 첫 번째)</h3>
-      <div class="lines">
-        <div>🌴 푸른 바다와 한라산 사이…</div>
-        <div>🎓 제주대학교는 제주를 대표하는…</div>
-        <div>… (10줄)</div>
-        <span class="tag">목록처럼 쌓인 문구 <small>&lt;p&gt;×10</small></span>
+    <section id="specialty">
+      <h2>🍊 제주 대표 특산물</h2>
+      <div class="grid">
+        <div class="item"><div class="e">🍊</div><h3>감귤</h3><p>제주의 상징. 비타민 C가 풍부한 겨울 간식</p></div>
+        <div class="item"><div class="e">🍋</div><h3>한라봉</h3><p>한라산처럼 볼록한 꼭지, 진한 향과 단맛</p></div>
+        <div class="item"><div class="e">🐟</div><h3>은갈치</h3><p>은빛으로 반짝이는 구이·조림의 대표 생선</p></div>
+        <div class="item"><div class="e">🐖</div><h3>흑돼지</h3><p>쫄깃하고 고소한 제주 재래 품종</p></div>
+        <div class="item"><div class="e">🐚</div><h3>전복</h3><p>해녀가 채취하는 청정 바다의 보양식</p></div>
+        <div class="item"><div class="e">🍡</div><h3>오메기떡</h3><p>차조로 빚은 쫀득한 전통 떡</p></div>
+        <div class="item"><div class="e">🍵</div><h3>제주 녹차</h3><p>한라산 자락에서 자란 향긋한 차</p></div>
+        <div class="item"><div class="e">🥕</div><h3>구좌 당근</h3><p>달콤한 제주 밭작물, 주스로도 인기</p></div>
       </div>
-      <span class="tag">카드 <small>&lt;section&gt; ×10</small></span>
-    </div>
+    </section>
 
-    <div class="part footer">© 2026 내 취향 카드 · Made with 💛<span class="tag">푸터 <small>&lt;footer&gt;</small></span></div>
-  </div>
+    <article id="season">
+      <h2>📅 언제 먹으면 가장 맛있을까?</h2>
+      <p>특산물마다 맛이 오르는 시기가 달라요. 아래는 대략적인 시기이며, 해마다 조금씩 다릅니다.</p>
+      <ul>
+        <li>🍊 <b>노지 감귤</b> — 가을 끝자락부터 겨울 (대략 10월 말 ~ 1월)</li>
+        <li>🍋 <b>한라봉</b> — 겨울에서 이른 봄 (대략 1월 ~ 4월)</li>
+        <li>🌿 <b>고사리</b> — 봄철</li>
+        <li>🐟 <b>갈치·옥돔</b> — 사계절, 구이와 조림으로</li>
+      </ul>
+      <div class="season"><span>🌸 봄</span><span>☀️ 여름</span><span>🍂 가을</span><span>❄️ 겨울</span></div>
+    </article>
 
-  <div class="box">
-    <h2>찾아본 부품 6종</h2>
-    <ul>
-      <li>🏷️ <b>헤더</b> — 있음 (1개)</li>
-      <li>🃏 <b>카드</b> — 있음 (소제목 카드 10개)</li>
-      <li>📑 <b>탭</b> — 있음: 상단 메뉴 4개(홈·음식·여행·소개). 실제 탭 전환은 아니고 링크 메뉴입니다</li>
-      <li>📋 <b>목록</b> — 비슷한 것만 있음: 각 카드 안의 문구 10줄. <code>&lt;ul&gt;</code> 목록 태그는 아님</li>
-      <li class="miss">🔘 버튼 — 없음</li>
-      <li class="miss">⌨️ 입력창 — 없음</li>
-    </ul>
+    <aside id="experience">
+      <h2>🎨 함께 즐겨요</h2>
+      <ul>
+        <li>🧺 감귤 따기 체험</li>
+        <li>🍫 감귤 초콜릿 만들기</li>
+        <li>🧜‍♀️ 해녀 문화 체험</li>
+        <li>🍵 녹차밭 산책</li>
+        <li>🥾 올레길 걷기</li>
+      </ul>
+      <h2 id="tips" style="margin-top:1.2rem">💡 여행 팁</h2>
+      <ul>
+        <li>🧥 바람이 강하니 겉옷을 챙기세요</li>
+        <li>☔ 날씨가 변덕스러워요, 우산 필수</li>
+        <li>🚗 성수기 렌터카는 미리 예약</li>
+      </ul>
+    </aside>
+
+    <footer id="contact">
+      © 2026 제주 특산물 이야기 · Made with 💛 for Jeju
+      <small>시기·정보는 참고용입니다. 정확한 내용은 판매처와 공식 안내를 확인하세요.</small>
+    </footer>
   </div>
 </body>
 </html>
