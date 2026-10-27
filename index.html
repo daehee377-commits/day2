@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>화면 부품 지도</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: sans-serif; margin: 0; padding: 1.5rem 1rem; background: #eef0f3; color: #222; }
+    h1 { font-size: 1.3rem; text-align: center; margin: 0 0 .3rem; }
+    .sub { text-align: center; color: #666; font-size: .9rem; margin-bottom: 1.5rem; }
+    .wrap { max-width: 760px; margin: 0 auto; padding-right: 150px; }
+    .part { position: relative; border: 2px solid; border-radius: 8px; margin-bottom: 12px; padding: .7rem 1rem; background: #fff; }
+    .tag { position: absolute; left: calc(100% + 14px); top: 12px; color: #fff; font-size: .8rem; padding: .2rem .6rem; border-radius: 999px; white-space: nowrap; }
+    .tag small { opacity: .85; }
+    .header { border-color: #ff8a3d; background: #fff3ea; text-align: center; }
+    .header .tag { background: #ff8a3d; }
+    .tabs { border-color: #2f6fed; display: flex; gap: 8px; justify-content: center; }
+    .tabs .tag { background: #2f6fed; }
+    .tabs span.t { border: 1px solid #9db7f5; border-radius: 6px; padding: .2rem .8rem; font-size: .85rem; }
+    .card { border-color: #1f9d6b; }
+    .card .tag { background: #1f9d6b; }
+    .card h3 { margin: 0 0 .4rem; font-size: 1rem; }
+    .lines { position: relative; border: 2px dashed #a855f7; border-radius: 6px; padding: .4rem .7rem; }
+    .lines .tag { background: #a855f7; }
+    .lines div { font-size: .8rem; color: #777; margin: 2px 0; }
+    .footer { border-color: #666; background: #eee; text-align: center; font-size: .85rem; }
+    .footer .tag { background: #666; }
+    .box { max-width: 760px; margin: 1.5rem auto 0; background: #fff; border-radius: 12px; padding: 1rem 1.2rem; font-size: .9rem; }
+    .box h2 { font-size: 1rem; margin: 0 0 .5rem; }
+    .box li { margin: .3rem 0; }
+    .miss { color: #999; }
+  </style>
+</head>
+<body>
+  <h1>🗺️ 화면 부품 지도</h1>
+  <div class="sub">index.html 의 화면 부품에 이름표를 붙였어요 (index.html 은 그대로)</div>
+
+  <div class="wrap">
+    <div class="part header">🌴 내 취향 카드 · 제주대학교를 소개합니다<span class="tag">헤더 <small>&lt;header&gt;</small></span></div>
+
+    <div class="part tabs"><span class="t">홈</span><span class="t">음식</span><span class="t">여행</span><span class="t">소개</span><span class="tag">탭 · 메뉴 <small>&lt;nav&gt;</small></span></div>
+
+    <div class="part card">
+      <h3>🌊 환영합니다 (… 10개 중 첫 번째)</h3>
+      <div class="lines">
+        <div>🌴 푸른 바다와 한라산 사이…</div>
+        <div>🎓 제주대학교는 제주를 대표하는…</div>
+        <div>… (10줄)</div>
+        <span class="tag">목록처럼 쌓인 문구 <small>&lt;p&gt;×10</small></span>
+      </div>
+      <span class="tag">카드 <small>&lt;section&gt; ×10</small></span>
+    </div>
+
+    <div class="part footer">© 2026 내 취향 카드 · Made with 💛<span class="tag">푸터 <small>&lt;footer&gt;</small></span></div>
+  </div>
+
+  <div class="box">
+    <h2>찾아본 부품 6종</h2>
+    <ul>
+      <li>🏷️ <b>헤더</b> — 있음 (1개)</li>
+      <li>🃏 <b>카드</b> — 있음 (소제목 카드 10개)</li>
+      <li>📑 <b>탭</b> — 있음: 상단 메뉴 4개(홈·음식·여행·소개). 실제 탭 전환은 아니고 링크 메뉴입니다</li>
+      <li>📋 <b>목록</b> — 비슷한 것만 있음: 각 카드 안의 문구 10줄. <code>&lt;ul&gt;</code> 목록 태그는 아님</li>
+      <li class="miss">🔘 버튼 — 없음</li>
+      <li class="miss">⌨️ 입력창 — 없음</li>
+    </ul>
+  </div>
+</body>
+</html>
