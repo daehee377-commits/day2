@@ -48,7 +48,7 @@
     .pnav { display: flex; justify-content: center; align-items: center; gap: .8rem; margin-top: .7rem; font-size: .9rem; }
     .pcredit { text-align: center; font-size: .75rem; color: #999; margin-top: .6rem; }
     #chatBtn { position: fixed; right: 1.2rem; bottom: 1.2rem; z-index: 20; border: 0; border-radius: 999px; background: #ff6b35; color: #fff; font-size: 1rem; padding: .8rem 1.3rem; box-shadow: 0 4px 14px rgba(0,0,0,.25); cursor: pointer; }
-    #chatBox { position: fixed; right: 1.2rem; bottom: 5rem; z-index: 20; width: 360px; height: 520px; max-width: calc(100vw - 2.4rem); max-height: calc(100vh - 7rem); border-radius: 16px; overflow: hidden; background: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.3); display: none; }
+    #chatBox { position: fixed; right: 1.2rem; bottom: 5rem; z-index: 20; width: 360px; height: 520px; max-width: calc(100vw - 2.4rem); max-height: calc(100vh - 7rem); max-height: calc(100dvh - 7rem); border-radius: 16px; overflow: hidden; background: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.3); display: none; }
     #chatBox.open { display: block; }
     #chatBox.open { display: flex; flex-direction: column; }
     .ch-head { background: #ff8a3d; color: #fff; padding: .8rem 1rem; text-align: center; font-weight: bold; }
@@ -60,9 +60,50 @@
     .ch-form input { flex: 1; min-width: 0; padding: .55rem .8rem; border: 1px solid #ddd; border-radius: 999px; font-size: .95rem; }
     .ch-form button { padding: .5rem 1rem; border: 0; border-radius: 999px; background: #ff6b35; color: #fff; cursor: pointer; }
     .ch-note { text-align: center; font-size: .7rem; color: #999; padding: .3rem .5rem .5rem; background: #fff; }
+    /* 반응형: 글자·여백은 화면 크기에 맞춰 자동 조절 */
+    header h1 { font-size: clamp(1.4rem, 4vw, 2.2rem); }
+    img { max-width: 100%; }
+
+    /* 큰 PC 화면 */
+    @media (min-width: 1200px) {
+      .layout { max-width: 1180px; gap: 1.2rem; grid-template-columns: 2.2fr 1fr; }
+      .grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    /* 태블릿 */
+    @media (max-width: 1024px) {
+      .layout { padding: .8rem; }
+      section, article, aside { padding: 1.1rem 1.2rem; }
+    }
+
+    /* 모바일: 한 줄로 쌓기 */
     @media (max-width: 720px) {
-      .layout { grid-template-columns: 1fr; grid-template-areas: "header" "nav" "section" "article" "aside" "footer"; }
-      header h1 { font-size: 1.6rem; }
+      .layout { grid-template-columns: 1fr; grid-template-areas: "header" "nav" "section" "article" "aside" "footer"; gap: .8rem; padding: .6rem; }
+      header { padding: 1.4rem 1rem; border-radius: 14px; }
+      nav { position: sticky; top: .4rem; z-index: 10; flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; gap: .2rem .6rem; padding: .5rem .6rem; -webkit-overflow-scrolling: touch; }
+      nav a { white-space: nowrap; padding: .55rem .7rem; }
+      section, article, aside { padding: 1rem; border-radius: 14px; }
+      .grid { grid-template-columns: repeat(2, 1fr); gap: .6rem; }
+      .item { padding: .7rem .5rem; }
+      .search { flex-direction: column; }
+      .search input, .search button { font-size: 16px; min-height: 44px; }
+      #pslide { aspect-ratio: 1 / 1; }
+      /* 채팅창은 화면 아래에서 거의 가득 차게 */
+      #chatBtn { right: .8rem; bottom: calc(.8rem + env(safe-area-inset-bottom)); padding: .75rem 1.1rem; }
+      #chatBox { left: .6rem; right: .6rem; bottom: calc(4.4rem + env(safe-area-inset-bottom)); width: auto; max-width: none; height: min(75vh, 560px); height: min(75dvh, 560px); max-height: none; }
+      .ch-form input { font-size: 16px; }
+      .ch-form button { min-height: 40px; }
+    }
+
+    /* 아주 작은 폰 */
+    @media (max-width: 380px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    /* 움직임 줄이기 설정을 켠 사용자 */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      #pslide a { transition: none; }
     }
   </style>
 </head>

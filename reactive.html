@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>반응형 메뉴 페이지</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Malgun Gothic", sans-serif; background: #f4f6f8; color: #222; line-height: 1.7; }
+
+    /* 상단 바 */
+    .topbar { position: sticky; top: 0; z-index: 10; background: #2f6fed; color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
+    .bar { max-width: 1100px; margin: 0 auto; padding: .7rem 1rem; display: flex; align-items: center; justify-content: space-between; position: relative; }
+    .logo { font-size: 1.2rem; font-weight: bold; }
+
+    /* 메뉴 (PC: 가로) */
+    .menu { display: flex; gap: .3rem; list-style: none; margin: 0; padding: 0; }
+    .menu button { background: none; border: 0; color: #fff; font-size: 1rem; padding: .5rem 1rem; border-radius: 8px; cursor: pointer; font-family: inherit; }
+    .menu button:hover { background: rgba(255,255,255,.18); }
+    .menu button.active { background: #fff; color: #2f6fed; font-weight: bold; }
+
+    /* 햄버거 버튼 (모바일에서만 보임) */
+    .burger { display: none; width: 44px; height: 44px; background: none; border: 0; cursor: pointer; padding: 10px; }
+    .burger span { display: block; height: 3px; background: #fff; border-radius: 2px; margin: 5px 0; transition: transform .25s, opacity .25s; }
+    .burger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity: 0; }
+    .burger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* 본문 */
+    main { max-width: 1100px; margin: 0 auto; padding: 1.2rem 1rem 3rem; }
+    .panel { display: none; }
+    .panel.show { display: block; animation: fade .25s ease; }
+    @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    h2 { margin: 0 0 1rem; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+    .card { background: #fff; border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,.08); padding: 1.1rem; }
+    .card .e { font-size: 2.4rem; }
+    .card h3 { margin: .3rem 0; font-size: 1.05rem; }
+    .card p { margin: 0; font-size: .9rem; color: #666; }
+    .note { margin-top: 1rem; font-size: .8rem; color: #888; }
+    .map { width: 100%; height: 360px; border: 0; border-radius: 14px; background: #dfe6ee; }
+
+    /* 모바일: 햄버거 메뉴 */
+    @media (max-width: 720px) {
+      .burger { display: block; }
+      .menu { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: #2a62d0; padding: .4rem .6rem .8rem; box-shadow: 0 8px 16px rgba(0,0,0,.2); }
+      .menu.open { display: flex; }
+      .menu button { width: 100%; text-align: left; padding: .8rem 1rem; font-size: 1.05rem; }
+      .map { height: 280px; }
+    }
+    @media (prefers-reduced-motion: reduce) { .panel.show, .burger span { animation: none; transition: none; } }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="bar">
+      <div class="logo">🧭 리액티브 페이지</div>
+      <button class="burger" id="burger" aria-label="메뉴 열기" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="menu" id="menu">
+        <li><button data-t="food" class="active">🍽️ 음식</button></li>
+        <li><button data-t="furniture">🛋️ 가구</button></li>
+        <li><button data-t="estate">🏠 부동산</button></li>
+        <li><button data-t="stock">📈 주식</button></li>
+        <li><button data-t="map">🗺️ 지도</button></li>
+      </ul>
+    </div>
+  </div>
+
+  <main>
+    <section class="panel show" id="food">
+      <h2>🍽️ 음식</h2>
+      <div class="cards">
+        <div class="card"><div class="e">🍜</div><h3>고기국수</h3><p>돼지 사골 국물의 제주 대표 국수</p></div>
+        <div class="card"><div class="e">🐟</div><h3>갈치조림</h3><p>무와 함께 조린 매콤한 요리</p></div>
+        <div class="card"><div class="e">🍊</div><h3>한라봉 에이드</h3><p>상큼한 제주 감귤 음료</p></div>
+      </div>
+    </section>
+
+    <section class="panel" id="furniture">
+      <h2>🛋️ 가구</h2>
+      <div class="cards">
+        <div class="card"><div class="e">🛏️</div><h3>침대</h3><p>매트리스와 프레임 구성</p></div>
+        <div class="card"><div class="e">🪑</div><h3>의자</h3><p>책상용·식탁용 의자</p></div>
+        <div class="card"><div class="e">🗄️</div><h3>수납장</h3><p>좁은 공간을 위한 수납 가구</p></div>
+      </div>
+    </section>
+
+    <section class="panel" id="estate">
+      <h2>🏠 부동산</h2>
+      <div class="cards">
+        <div class="card"><div class="e">🏢</div><h3>아파트</h3><p>단지형 주거 형태</p></div>
+        <div class="card"><div class="e">🏡</div><h3>단독주택</h3><p>마당이 있는 주거 형태</p></div>
+        <div class="card"><div class="e">🏬</div><h3>상가</h3><p>가게·사무실 공간</p></div>
+      </div>
+      <p class="note">예시 항목입니다. 실제 매물·가격 정보가 아닙니다.</p>
+    </section>
+
+    <section class="panel" id="stock">
+      <h2>📈 주식</h2>
+      <div class="cards">
+        <div class="card"><div class="e">📊</div><h3>시장 지수</h3><p>코스피·코스닥 같은 시장 흐름</p></div>
+        <div class="card"><div class="e">🏭</div><h3>업종</h3><p>산업별로 묶어 보기</p></div>
+        <div class="card"><div class="e">📰</div><h3>공시·뉴스</h3><p>기업 소식 모아 보기</p></div>
+      </div>
+      <p class="note">예시 항목입니다. 실제 시세나 투자 조언이 아닙니다.</p>
+    </section>
+
+    <section class="panel" id="map">
+      <h2>🗺️ 지도</h2>
+      <iframe class="map" title="제주도 지도" loading="lazy"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=126.1%2C33.1%2C126.95%2C33.6&amp;layer=mapnik"></iframe>
+      <p class="note">지도 © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 기여자</p>
+    </section>
+  </main>
+
+  <script>
+    const burger = document.getElementById('burger');
+    const menu = document.getElementById('menu');
+
+    function setMenu(open) {
+      menu.classList.toggle('open', open);
+      burger.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', open);
+      burger.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+    }
+
+    burger.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
+
+    menu.querySelectorAll('button').forEach(b => {
+      b.addEventListener('click', () => {
+        menu.querySelectorAll('button').forEach(x => x.classList.toggle('active', x === b));
+        document.querySelectorAll('.panel').forEach(p => p.classList.toggle('show', p.id === b.dataset.t));
+        setMenu(false);                       // 모바일에서는 고르면 메뉴를 닫음
+      });
+    });
+
+    // PC 크기로 넓히면 열려 있던 모바일 메뉴 상태를 정리
+    matchMedia('(min-width: 721px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
+  </script>
+</body>
+</html>
