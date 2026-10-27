@@ -47,6 +47,10 @@
     #pcount { position: absolute; right: .6rem; bottom: .6rem; background: rgba(0,0,0,.55); color: #fff; font-size: .8rem; padding: .1rem .6rem; border-radius: 999px; z-index: 1; }
     .pnav { display: flex; justify-content: center; align-items: center; gap: .8rem; margin-top: .7rem; font-size: .9rem; }
     .pcredit { text-align: center; font-size: .75rem; color: #999; margin-top: .6rem; }
+    #chatBtn { position: fixed; right: 1.2rem; bottom: 1.2rem; z-index: 20; border: 0; border-radius: 999px; background: #ff6b35; color: #fff; font-size: 1rem; padding: .8rem 1.3rem; box-shadow: 0 4px 14px rgba(0,0,0,.25); cursor: pointer; }
+    #chatBox { position: fixed; right: 1.2rem; bottom: 5rem; z-index: 20; width: 360px; height: 520px; max-width: calc(100vw - 2.4rem); max-height: calc(100vh - 7rem); border-radius: 16px; overflow: hidden; background: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.3); display: none; }
+    #chatBox.open { display: block; }
+    #chatBox iframe { width: 100%; height: 100%; border: 0; }
     @media (max-width: 720px) {
       .layout { grid-template-columns: 1fr; grid-template-areas: "header" "nav" "section" "article" "aside" "footer"; }
       header h1 { font-size: 1.6rem; }
@@ -127,6 +131,25 @@
       <small>시기·정보는 참고용입니다. 정확한 내용은 판매처와 공식 안내를 확인하세요.</small>
     </footer>
   </div>
+  <button id="chatBtn" type="button">💬 에이전트와 채팅</button>
+  <div id="chatBox"></div>
+
+  <script>
+    // 채팅 버튼: 누르면 agent.html 을 채팅창으로 열고, 다시 누르면 닫습니다.
+    (function () {
+      const btn = document.getElementById('chatBtn');
+      const box = document.getElementById('chatBox');
+      btn.addEventListener('click', () => {
+        if (!box.firstChild) {
+          const f = document.createElement('iframe');
+          f.src = 'agent.html'; f.title = '제주 특산물 에이전트';
+          box.appendChild(f);
+        }
+        const open = box.classList.toggle('open');
+        btn.textContent = open ? '✖ 채팅 닫기' : '💬 에이전트와 채팅';
+      });
+    })();
+  </script>
   <script>
     // API 키는 서버(/api/pixabay)의 환경변수에만 있고, 이 파일에는 없습니다.
     const $ = id => document.getElementById(id);
