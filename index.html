@@ -7,21 +7,24 @@
   <style>
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { font-family: "Malgun Gothic", sans-serif; margin: 0; background: #fff8ef; color: #2b2b2b; line-height: 1.7; }
+    body { font-family: "Malgun Gothic", sans-serif; margin: 0; background: #e3f2fa; color: #2b2b2b; line-height: 1.7; }
     .layout { max-width: 1000px; margin: 0 auto; padding: 1rem; display: grid; gap: 1rem;
       grid-template-columns: 2fr 1fr;
       grid-template-areas: "header header" "nav nav" "section aside" "article aside" "footer footer"; }
-    header { grid-area: header; background: linear-gradient(135deg, #ff9f43, #ff6b35); color: #fff; border-radius: 16px; padding: 2rem 1.5rem; text-align: center; }
+    header { grid-area: header; background: linear-gradient(135deg, #00a8d6, #3ddc97); color: #fff; border-radius: 16px; padding: 2rem 1.5rem; text-align: center; }
     header h1 { margin: 0; font-size: 2rem; }
     header p { margin: .4rem 0 0; opacity: .95; }
-    nav { grid-area: nav; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.08); display: flex; flex-wrap: wrap; justify-content: center; gap: .3rem 1.4rem; padding: .8rem 1rem; }
-    nav a { color: #444; text-decoration: none; font-weight: bold; padding: .2rem .4rem; border-radius: 6px; }
-    nav a:hover { background: #ffe8d1; color: #ff6b35; }
-    section, article, aside { background: #fff; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,.08); padding: 1.3rem 1.5rem; }
+    .hbtn { display: inline-block; margin-top: 1rem; background: #fff; color: #0a7f9c; text-decoration: none; font-weight: bold; padding: .7rem 1.6rem; border-radius: 999px; box-shadow: 0 4px 12px rgba(0,0,0,.18); transition: transform .15s; }
+    .hbtn:hover, .hbtn:focus-visible { transform: translateY(-2px) scale(1.04); }
+    nav { grid-area: nav; background: #fff6e5; border-top: 5px solid #ff9f1c; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.08); display: flex; flex-wrap: wrap; justify-content: space-around; gap: .3rem 1rem; padding: .8rem 1rem; }
+    nav a { color: #444; text-decoration: none; padding: .2rem .6rem; border-radius: 6px; }
+    nav a:hover { background: #ffe8c2; color: #d97706; }
+    section, article, aside { background: #fff; border-radius: 16px; border-top: 5px solid #00a8d6; box-shadow: 0 2px 8px rgba(0,0,0,.08); padding: 1.3rem 1.5rem; }
     section { grid-area: section; }
-    article { grid-area: article; }
-    aside { grid-area: aside; background: #e9f7f2; }
-    h2 { margin: 0 0 .8rem; font-size: 1.3rem; color: #ff6b35; }
+    article { grid-area: article; border-top-color: #ff9f1c; }
+    aside { grid-area: aside; background: #effdf6; border-top-color: #3ddc97; }
+    h2 { margin: 0 0 .8rem; font-size: 1.3rem; color: #0a7f9c; }
+    article h2 { color: #d97706; }
     aside h2 { color: #1f9d6b; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .8rem; }
     .item { background: #fff3e4; border-radius: 12px; padding: .9rem; text-align: center; }
@@ -109,17 +112,18 @@
 </head>
 <body>
   <div class="layout">
-    <header>
+    <header id="top">
       <h1>🍊 제주 특산물 이야기 🌴</h1>
-      <p>바람과 바다와 화산이 키운 제주의 맛을 만나보세요</p>
+      <p>바람과 햇살이 키운 제주의 맛을 만나보세요</p>
+      <a class="hbtn" href="reactive.html">🧭 반응형 메뉴 보기</a>
     </header>
 
     <nav>
+      <a href="#top">🏠 홈</a>
       <a href="#specialty">🍊 특산물</a>
-      <a href="#season">📅 제철</a>
-      <a href="#experience">🎨 체험</a>
-      <a href="#tips">💡 여행 팁</a>
-      <a href="#contact">📞 안내</a>
+      <a href="#photos">📷 사진</a>
+      <a href="#season">📅 제철 달력</a>
+      <a href="#tips">🧭 여행 팁</a>
     </nav>
 
     <section id="specialty">
